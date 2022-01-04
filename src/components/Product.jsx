@@ -1,18 +1,13 @@
 import styled from "styled-components";
 // import { Button } from 'antd';
-import { Card } from 'antd';
-
+import { Card } from "antd";
 const { Meta } = Card;
 
-
 const Container = styled.div`
-  display:flex;
+  display: flex;
   display: inline-block;
-  // flex:1;
-  // align-items: space-between;
-  // justify-content: space-around;
-  margin:40px;
-`
+  margin: 30px;
+`;
 const Button = styled.button`
   display: inline-block;
   padding: 3px 10px;
@@ -31,21 +26,29 @@ const Button = styled.button`
   &:hover{
   box-shadow: inset 0 0 0 50px  #253237;
   color: white;
-`
+`;
 const Product = (props) => {
-  return(
+  const handleAddToCart = () => {
+    props.updateCartArray([...props.cartArray, props.product]);
+  };
+
+  return (
     <Container>
       <Card
         hoverable
-        style={{ width: 240 }}
-        cover={<img alt="shoe-images" src={props.image} />}>
-        <Meta title={props.product_name} description={`$${props.price}`} />
+        style={{ width: 258 }}
+        cover={<img alt="shoe-images" src={props.product.image} />}
+      >
+        <Meta
+          title={props.product.product_name}
+          description={`$${props.product.price}`}
+        />
 
-      <Button>View</Button><Button>Add to Cart</Button>
+        <Button>View</Button>
+        <Button onClick={handleAddToCart}>Add to Cart</Button>
       </Card>
     </Container>
-  )
-}
+  );
+};
 
-
-export default Product
+export default Product;

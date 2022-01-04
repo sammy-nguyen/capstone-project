@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SearchOutlined } from "@ant-design/icons";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   height: 60px;
@@ -61,27 +63,76 @@ const MenuItem = styled.div`
   cursor: pointer;
   margin-left: 25px;
 `;
-const Navbar = () => {
+
+const HomeBtn = styled.div`
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 25px;
+  color: black;
+`;
+const Navbar = (props) => {
+  const [searchInput, setSearchInput] = useState("");
+
+  const searchFeature = () => {
+    axios
+      .get(`http://localhost:8089/products/search?searchTerm=${searchInput}`)
+      .then((res) => {
+        props.updateProducts(res.data);
+        setSearchInput("");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input />
-            <SearchOutlined style={{ color: "gray", fontSize: 16 }} />
+            <Input
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  searchFeature();
+                }
+              }}
+            />
+            <SearchOutlined
+              onClick={searchFeature}
+              style={{ color: "gray", fontSize: 16 }}
+            />
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Emart</Logo>
+          <Link to="/">
+            <Logo>Emart</Logo>
+          </Link>
         </Center>
         <Right>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
-            <Badge color="#f20089" count={5} size="large">
-              <ShoppingOutlined style={{ fontSize: "30px" }} />
-            </Badge>
+          <Link to="/">
+            <HomeBtn>HOME</HomeBtn>
+          </Link>
+          {/* <Link to="/user-account"> */}
+          <MenuItem
+            onClick={() => props.setIsModalVisible(!props.isModalVisible)}
+          >
+            SIGN IN
           </MenuItem>
+          {/* </Link> */}
+
+          <Link to="/cart">
+            <MenuItem>
+              <Badge color="#f20089" count={props.cartCount} size="large">
+                <ShoppingOutlined style={{ fontSize: "30px" }} />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
