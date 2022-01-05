@@ -118,13 +118,20 @@ const Navbar = (props) => {
           <Link to="/">
             <HomeBtn>HOME</HomeBtn>
           </Link>
-          {/* <Link to="/user-account"> */}
-          <MenuItem
-            onClick={() => props.setIsModalVisible(!props.isModalVisible)}
-          >
-            SIGN IN
-          </MenuItem>
-          {/* </Link> */}
+
+          {props.user ? (
+            <Link to="/purchased">
+              <MenuItem style={{ fontSize: "20px" }}>
+                Hello, {props.user.name}
+              </MenuItem>
+            </Link>
+          ) : (
+            <MenuItem
+              onClick={() => props.setIsModalVisible(!props.isModalVisible)}
+            >
+              SIGN IN
+            </MenuItem>
+          )}
 
           <Link to="/cart">
             <MenuItem>

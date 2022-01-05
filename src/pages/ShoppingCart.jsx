@@ -11,6 +11,7 @@ const ShoppingCart = (props) => {
         updateCartArray={props.updateCartArray}
         isModalVisible={props.isModalVisible}
         setIsModalVisible={props.setIsModalVisible}
+        token={props.token}
       />
     </div>
   );

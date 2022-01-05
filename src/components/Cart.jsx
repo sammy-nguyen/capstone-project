@@ -1,9 +1,10 @@
 // import React, { useState } from "react";
-import { Card } from "antd";
+import { Card, Modal } from "antd";
 import styled from "styled-components";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { DeleteOutlined } from "@ant-design/icons";
+import axios from "axios";
 const Container = styled.div`
   display: flex;
 `;
@@ -117,6 +118,32 @@ const Cart = (props) => {
     props.updateCartArray(newArr);
   };
 
+  const handleCheckout = () => {
+    if (props.token.length === 0) {
+      console.log("run here");
+      props.setIsModalVisible(!props.isModalVisible);
+    } else {
+      const totalPrice = (subTotal() * (1.0725).toFixed(2)).toFixed(2);
+      axios
+        .post("http://localhost:8089/products/history", {
+          token: props.token,
+          total_price: totalPrice,
+          products: props.cartArray,
+        })
+        .then(() => {
+          Modal.success({ content: "Your order is completed" });
+          props.updateCartArray([]);
+        })
+        .catch((err) => {
+          console.error(err);
+          Modal.error({
+            title: "Something wrong",
+            content: "Please try again later",
+          });
+        });
+    }
+  };
+
   const cards = uniqueCards.map((product, index) => {
     return (
       <Wrapper>
@@ -207,11 +234,7 @@ const Cart = (props) => {
                 </span>
               </p>
             </CardStyleTwo>
-            <Button
-              onClick={() => props.setIsModalVisible(!props.isModalVisible)}
-            >
-              Proceed to Checkout
-            </Button>
+            <Button onClick={handleCheckout}>Proceed to Checkout</Button>
           </Card>
         </WrapperTwo>
       ) : null}

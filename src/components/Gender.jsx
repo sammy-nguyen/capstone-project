@@ -1,25 +1,21 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
-  display:flex;
+  display: flex;
   width: 100%;
 `;
 
 const Men = styled.div`
   flex: 1;
-
-`
+`;
 const Image = styled.img`
   margin-top: 2%;
   padding: 5px;
   position: absolute;
   height: 100%;
   width: 50%;
-
-
-
-`
+`;
 const Button = styled.button`
   position: relative;
   margin-top: 90%;
@@ -44,26 +40,29 @@ const Button = styled.button`
   }
 }
 
-`
+`;
 const Women = styled.div`
   flex: 1;
-`
+`;
 const Gender = () => {
   return (
     <Container>
       <Men>
-        <Image src={`https://images.unsplash.com/photo-1605737804470-0d611b7b827c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1888&q=80`}/>
+        <Image
+          src={`https://images.unsplash.com/photo-1605737804470-0d611b7b827c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1888&q=80`}
+        />
         <Link to="/products/men">
-              <Button>MEN</Button>
+          <Button>MEN</Button>
         </Link>
       </Men>
       <Women>
-        <Image src={`https://images.unsplash.com/photo-1565021861162-e2a8c7e817e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80`}/>
+        <Image
+          src={`https://images.unsplash.com/photo-1565021861162-e2a8c7e817e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80`}
+        />
         <Link to="/products/women">
-              <Button>WOMEN</Button>
+          <Button>WOMEN</Button>
         </Link>
       </Women>
-
     </Container>
   );
 };

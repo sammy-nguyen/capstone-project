@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import React , { useState } from "react";
+import React, { useState } from "react";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import PurchasedHistory from "./pages/PurchasedHistory";
 import ShoppingCart from "./pages/ShoppingCart";
 import AccountPage from "./pages/AccountPage";
 import Announcement from "./components/Announcement";
@@ -21,11 +22,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState();
-  const [token, setToken] = useState();
-
-  const showModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
+  const [token, setToken] = useState("");
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -56,6 +53,7 @@ function App() {
     axios
       .post("http://localhost:8089/user/login", { email, password })
       .then((response) => {
+        console.log(response);
         setUser(response.data.user);
         setToken(response.data.token);
         setIsModalVisible(false);
@@ -127,6 +125,7 @@ function App() {
         updateProducts={setProducts}
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
+        user={user}
       />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -149,10 +148,12 @@ function App() {
               updateCartArray={setCartArray}
               isModalVisible={isModalVisible}
               setIsModalVisible={setIsModalVisible}
+              token={token}
             />
           }
         />
         <Route path="/user-account" element={<AccountPage />} />
+        <Route path="/purchased" element={<PurchasedHistory />} />
       </Routes>
       <Footer />
     </div>
