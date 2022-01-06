@@ -10,14 +10,14 @@ const Container = styled.div`
 `;
 const Button = styled.button`
   display: inline-block;
-  padding: 3px 10px;
+  letter-spacing: 1.2px;
+  padding: 7px 55px;
   margin:5px;
   color: black;
   font-weight: bolder;
   border: 1px solid black;
   background-color: white;
   font-size: 14px;
-  letter-spacing: 1px;
   cursor: pointer;
   box-shadow: inset 0 0 0 0 #5c6b73;
   -webkit-transition: ease-out 0.4s;
@@ -42,9 +42,9 @@ const Product = (props) => {
         <Meta
           title={props.product.product_name}
           description={`$${props.product.price}`}
+          style={{ fontSize: "20px", marginBottom: "10px" }}
         />
 
-        <Button>View</Button>
         <Button onClick={handleAddToCart}>Add to Cart</Button>
       </Card>
     </Container>

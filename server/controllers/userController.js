@@ -80,6 +80,7 @@ module.exports = function (app, client) {
               message: "login successful",
               token,
               user: {
+                id: dbResponse.rows[0].customer_id,
                 name: dbResponse.rows[0].name,
                 email: dbResponse.rows[0].email,
               },

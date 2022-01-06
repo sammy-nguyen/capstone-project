@@ -1,10 +1,11 @@
+import { PropertySafetyFilled } from "@ant-design/icons";
 import React from "react";
 import Purchased from "../components/Purchased";
 
-const PurchasedHistory = () => {
+const PurchasedHistory = (props) => {
   return (
     <div>
-      <Purchased />
+      <Purchased user={props.user} />
     </div>
   );
 };

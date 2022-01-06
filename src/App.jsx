@@ -153,7 +153,7 @@ function App() {
           }
         />
         <Route path="/user-account" element={<AccountPage />} />
-        <Route path="/purchased" element={<PurchasedHistory />} />
+        <Route path="/purchased" element={<PurchasedHistory user={user} />} />
       </Routes>
       <Footer />
     </div>

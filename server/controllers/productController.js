@@ -36,7 +36,7 @@ module.exports = function (app, client) {
       });
   });
 
-  app.post("/products/history", (req, res) => {
+  app.get("/products/history", (req, res) => {
     const { token, total_price, products } = req.body;
     const user = jwt.verify(token, secret);
     client
@@ -45,12 +45,26 @@ module.exports = function (app, client) {
       )
       .then((dataRes) => {
         // console.log(dataRes);
-        for(let i = 0; i < products.length; i++){
-        client.query(
-          `insert into order_product(quantity, customer_id, product_id, order_id) values (1,${user.id}, ${products[i].product_id},${dataRes.rows[0].id})`
-        );
+        for (let i = 0; i < products.length; i++) {
+          client.query(
+            `insert into order_product(quantity, customer_id, product_id, order_id) values (1,${user.id}, ${products[i].product_id},${dataRes.rows[0].id})`
+          );
         }
         return res.status(200).send(dataRes.rows[0]);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        return res.status(500).send(err);
+      });
+  });
+
+  app.get("/products/purchased-history", (req, res) => {
+    const { customer_id } = req.query;
+    client
+      .query(`select * from orders where customer_id = ${customer_id}`)
+      .then((dataRes) => {
+        console.log(dataRes);
+        return res.status(200).send(dataRes.rows);
       })
       .catch((err) => {
         console.log("err", err);

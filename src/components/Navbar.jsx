@@ -47,8 +47,8 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  font-size: 35px;
-  letter-spacing: 2px;
+  font-size: 38px;
+  letter-spacing: 2.5px;
 `;
 const Right = styled.div`
   flex: 1;
@@ -59,13 +59,17 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 16px;
+  font-size: 17px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
   cursor: pointer;
   margin-left: 25px;
 `;
 
 const HomeBtn = styled.div`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
   cursor: pointer;
   margin-left: 25px;
   color: black;
@@ -90,7 +94,9 @@ const Navbar = (props) => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
+          <Language style={{ fontWeight: "bolder", fontSize: "20px" }}>
+            EN
+          </Language>
           <SearchContainer>
             <Input
               value={searchInput}
@@ -122,7 +128,7 @@ const Navbar = (props) => {
           {props.user ? (
             <Link to="/purchased">
               <MenuItem style={{ fontSize: "20px" }}>
-                Hello, {props.user.name}
+                Hi, {props.user.name}
               </MenuItem>
             </Link>
           ) : (
