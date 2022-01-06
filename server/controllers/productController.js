@@ -36,7 +36,7 @@ module.exports = function (app, client) {
       });
   });
 
-  app.get("/products/history", (req, res) => {
+  app.post("/products/history", (req, res) => {
     const { token, total_price, products } = req.body;
     const user = jwt.verify(token, secret);
     client
@@ -62,6 +62,22 @@ module.exports = function (app, client) {
     const { customer_id } = req.query;
     client
       .query(`select * from orders where customer_id = ${customer_id}`)
+      .then((dataRes) => {
+        console.log(dataRes);
+        return res.status(200).send(dataRes.rows);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        return res.status(500).send(err);
+      });
+  });
+
+  app.get("/products/order-history", (req, res) => {
+    const { order_id } = req.query;
+    client
+      .query(
+        `select * from order_product inner join orders on order_product.order_id=orders.id inner join product on order_product.product_id=product.product_id  where order_product.order_id = ${order_id}`
+      )
       .then((dataRes) => {
         console.log(dataRes);
         return res.status(200).send(dataRes.rows);

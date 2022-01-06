@@ -11,7 +11,10 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  margin: 40px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 30px;
   padding: 10px;
 `;
 const WrapperOne = styled.div`
@@ -25,6 +28,9 @@ const WrapperTwo = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-left: 30px;
+  .ant-card-head-title {
+    font-size: 30px;
+  }
 `;
 
 const Image = styled.img`
